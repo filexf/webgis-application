@@ -2,6 +2,8 @@ import React from "react";
 import {useState} from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+
+import demoData from "./data/demographicData.js"; // Assurez-vous que le chemin est correct
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -26,50 +28,7 @@ ChartJS.register(
 const App = () => {
   const [showData, setShowData] = useState(true);
 
-  // Exemple de données GeoJSON pour des données démographiques
-  const demoData = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {
-          name: "Region A",
-          population: 500000,
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              [2.3522, 48.8566],
-              [2.3622, 48.8566],
-              [2.3622, 48.8666],
-              [2.3522, 48.8666],
-              [2.3522, 48.8566],
-            ],
-          ],
-        },
-      },
-      {
-        type: "Feature",
-        properties: {
-          name: "Region B",
-          population: 300000,
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              [2.3422, 48.8466],
-              [2.3522, 48.8466],
-              [2.3522, 48.8566],
-              [2.3422, 48.8566],
-              [2.3422, 48.8466],
-            ],
-          ],
-        },
-      },
-    ],
-  };
+
 
   // Style pour les régions démographiques
   const style = {
