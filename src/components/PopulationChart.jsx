@@ -20,7 +20,7 @@ ChartJS.register(
   Legend
 );
 
-const PopulationChart = ({ data, setActiveRegion }) => {
+const PopulationChart = ({ data, setActiveArrondissement }) => {
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -29,22 +29,35 @@ const PopulationChart = ({ data, setActiveRegion }) => {
       },
       title: {
         display: true,
-        text: "Population par Région",
+        text: "Population par Arrondissement",
       },
     },
     onHover: (event, elements) => {
       if (elements && elements.length > 0) {
-        const regionName = data.labels[elements[0].index];
-        setActiveRegion(regionName);
+        const arrondissement = data.labels[elements[0].index];
+        setActiveArrondissement(arrondissement);
       } else {
-        setActiveRegion(null);
+        setActiveArrondissement(null);
       }
     },
   };
 
+  const chartData = {
+    labels: data.map((item) => item.l_ar),
+    datasets: [
+      {
+        label: "Population",
+        data: data.map((item) => item.surface), // On utilisera la surface en attendant d'avoir les données de population
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <div className="p-4">
-      <Bar data={data} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </div>
   );
 };

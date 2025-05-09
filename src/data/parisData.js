@@ -1,4 +1,5 @@
-[
+
+export const demoData = [
   {
     n_sq_ar: 750000008,
     c_ar: 8,

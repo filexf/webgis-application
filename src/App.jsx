@@ -1,101 +1,85 @@
-import React from "react";
-import {useState} from "react";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
-import demoData from "./data/demographicData.js"; // Assurez-vous que le chemin est correct
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-// Enregistrer les composants de Chart.js
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import React, { useState } from "react";
+import { GeoJSON, MapContainer, TileLayer } from "react-leaflet";
+import PopulationChart from "./components/PopulationChart";
+import { demoData } from "./data/parisData.js";
 
 const App = () => {
   const [showData, setShowData] = useState(true);
+  const [activeArrondissement, setActiveArrondissement] = useState(null);
 
-
-
-  // Style pour les régions démographiques
-  const style = {
-    fillColor: "#87CEEB", // Sky blue color
-    weight: 2,
-    opacity: 1,
-    color: "white",
-    dashArray: "3",
-    fillOpacity: 0.7,
+  // Style pour les arrondissements
+  const style = (feature) => {
+    return {
+      fillColor:
+        activeArrondissement === feature.properties.l_ar
+          ? "#ff7800"
+          : "#87CEEB",
+      weight: 2,
+      opacity: 1,
+      color: "white",
+      dashArray: "3",
+      fillOpacity: activeArrondissement === feature.properties.l_ar ? 0.9 : 0.7,
+    };
   };
 
-  // Préparer les données pour Chart.js
-  const chartData = {
-    labels: demoData.features.map((feature) => feature.properties.name),
-    datasets: [
-      {
-        label: "Population",
-        data: demoData.features.map((feature) => feature.properties.population),
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
+  // Convertir les données en format GeoJSON
+  const geojsonData = {
+    type: "FeatureCollection",
+    features: demoData.map((item) => ({
+      type: "Feature",
+      properties: {
+        l_ar: item.l_ar,
+        l_aroff: item.l_aroff,
+        c_ar: item.c_ar,
+        surface: item.surface,
       },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Population par Région",
-      },
-    },
+      geometry: item.geom.geometry,
+    })),
   };
 
   return (
     <div className="h-screen flex flex-col">
       <header className="bg-sky-700 text-white p-4 text-center text-xl font-bold flex justify-between items-center">
-        <h1 className="text-center">Visualization of demographic data</h1>
+        <h1 className="text-center">Paris - Données des Arrondissements</h1>
         <button
           onClick={() => setShowData(!showData)}
           className="bg-white text-sky-600 px-4 py-2 rounded hover:bg-blue-100 transition-colors"
         >
-          {showData ? 'Full map' : 'Show datas'}
+          {showData ? "Carte complète" : "Afficher données"}
         </button>
       </header>
-      <main className={`flex-grow ${showData ? 'grid grid-cols-1 md:grid-cols-2' : ''} gap-4`}>
-        <div className={`h-full ${!showData ? 'w-full' : ''}`}>
+      <main
+        className={`flex-grow ${
+          showData ? "grid grid-cols-1 md:grid-cols-2" : ""
+        } gap-4`}
+      >
+        <div className={`h-full ${!showData ? "w-full" : ""}`}>
           <MapContainer center={[48.8566, 2.3522]} zoom={12} className="h-full">
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="&copy; OpenStreetMap contributors"
             />
-            <GeoJSON data={demoData} style={style} onEachFeature={(feature, layer) => {
-              layer.bindPopup(
-                `<h3>${feature.properties.name}</h3>` +
-                `<p>Population: ${feature.properties.population}</p>`
-              );
-            }} />
+            <GeoJSON
+              data={geojsonData}
+              style={style}
+              onEachFeature={(feature, layer) => {
+                layer.bindPopup(
+                  `<h3>${feature.properties.l_ar}</h3>
+                   <p>Nom officiel: ${feature.properties.l_aroff}</p>
+                   <p>Surface: ${feature.properties.surface.toFixed(2)} m²</p>
+                   <p>Arrondissement numéro: ${feature.properties.c_ar}</p>`
+                );
+              }}
+            />
           </MapContainer>
         </div>
         {showData && (
           <div className="p-4">
-            <Bar data={chartData} options={chartOptions} />
+            <PopulationChart
+              data={demoData}
+              setActiveArrondissement={setActiveArrondissement}
+            />
           </div>
         )}
       </main>
