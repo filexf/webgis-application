@@ -8,13 +8,30 @@ const App = () => {
   const [showData, setShowData] = useState(true);
   const [activeArrondissement, setActiveArrondissement] = useState(null);
 
+  // Fonction pour déterminer la couleur en fonction de la surface
+  const getColorByArea = (surface) => {
+    return surface > 10000000
+      ? "#08306b" // bleu très foncé pour les plus grandes surfaces
+      : surface > 8000000
+      ? "#08519c" // bleu foncé
+      : surface > 6000000
+      ? "#2171b5" // bleu moyen-foncé
+      : surface > 4000000
+      ? "#4292c6" // bleu moyen
+      : surface > 2000000
+      ? "#6baed6" // bleu clair
+      : surface > 1000000
+      ? "#9ecae1" // bleu très clair
+      : "#c6dbef"; // bleu le plus clair pour les plus petites surfaces
+  };
+
   // Style pour les arrondissements
   const style = (feature) => {
     return {
       fillColor:
         activeArrondissement === feature.properties.l_ar
           ? "#ff7800"
-          : "#87CEEB",
+          : getColorByArea(feature.properties.surface),
       weight: 2,
       opacity: 1,
       color: "white",
@@ -65,10 +82,12 @@ const App = () => {
               style={style}
               onEachFeature={(feature, layer) => {
                 layer.bindPopup(
-                  `<h3>${feature.properties.l_ar}</h3>
+                  `<h3 class="text-xl font-bold text-center">${
+                    feature.properties.l_ar
+                  }</h3>
                    <p>Nom officiel: ${feature.properties.l_aroff}</p>
                    <p>Surface: ${feature.properties.surface.toFixed(2)} m²</p>
-                   <p>Arrondissement numéro: ${feature.properties.c_ar}</p>`
+                   `
                 );
               }}
             />
