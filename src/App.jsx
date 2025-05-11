@@ -1,29 +1,30 @@
 import "leaflet/dist/leaflet.css";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { GeoJSON, MapContainer, TileLayer } from "react-leaflet";
 import PopulationChart from "./components/PopulationChart";
 import SearchBar from "./components/SearchBar";
-import { demoData } from "./data/parisData.js";
+import { demoData } from "./data/parisData.geojson";
 
 const App = () => {
   const [showData, setShowData] = useState(true);
   const [activeArrondissement, setActiveArrondissement] = useState(null);
+  const geoJsonLayerRef = useRef(null);
 
   // Fonction pour déterminer la couleur en fonction de la population
   const getColorByPopulation = (population) => {
     return population > 200000
-      ? "#08306b" // bleu très foncé pour les plus grandes populations
+      ? "#FF6B6B" // rouge clair pour les plus grandes populations
       : population > 150000
-      ? "#08519c" // bleu foncé
+      ? "#FF8585" // rouge plus clair
       : population > 100000
-      ? "#2171b5" // bleu moyen-foncé
+      ? "#FFA07A" // saumon clair
       : population > 75000
-      ? "#4292c6" // bleu moyen
+      ? "#FFB347" // orange clair
       : population > 50000
-      ? "#6baed6" // bleu clair
+      ? "#FFC000" // orange plus clair
       : population > 25000
-      ? "#9ecae1" // bleu très clair
-      : "#c6dbef"; // bleu le plus clair pour les plus petites populations
+      ? "#FFE5B4" // pêche clair
+      : "#FFF8DC"; // beige très clair pour les plus petites populations
   };
 
   // Style pour les arrondissements
@@ -31,7 +32,7 @@ const App = () => {
     return {
       fillColor:
         activeArrondissement === feature.properties.l_ar
-          ? "#ff7800"
+          ? "#6AAE8F" // vert légèrement plus vif pour la sélection
           : getColorByPopulation(feature.properties.population),
       weight: 2,
       opacity: 1,
@@ -57,6 +58,26 @@ const App = () => {
     })),
   };
 
+  const handleArrondissementChange = (arrondissement) => {
+    setActiveArrondissement(arrondissement);
+    if (arrondissement && geoJsonLayerRef.current) {
+      const layer = findLayerByArrondissement(arrondissement);
+      if (layer) {
+        layer.openPopup();
+      }
+    }
+  };
+
+  const findLayerByArrondissement = (arrondissement) => {
+    let targetLayer = null;
+    geoJsonLayerRef.current?.eachLayer((layer) => {
+      if (layer.feature.properties.l_ar === arrondissement) {
+        targetLayer = layer;
+      }
+    });
+    return targetLayer;
+  };
+
   return (
     <div className="h-screen flex flex-col">
       <header className="bg-sky-700 text-white p-4 text-center text-xl font-bold flex justify-between items-center">
@@ -76,7 +97,7 @@ const App = () => {
         <div className={`h-full ${!showData ? "w-full" : ""} relative`}>
           <SearchBar
             data={geojsonData.features}
-            setActiveArrondissement={setActiveArrondissement}
+            setActiveArrondissement={handleArrondissementChange}
           />
           <MapContainer center={[48.8566, 2.3522]} zoom={12} className="h-full">
             <TileLayer
@@ -84,6 +105,7 @@ const App = () => {
               attribution="&copy; OpenStreetMap contributors"
             />
             <GeoJSON
+              ref={geoJsonLayerRef}
               data={geojsonData}
               style={style}
               onEachFeature={(feature, layer) => {
@@ -95,6 +117,11 @@ const App = () => {
                    <p>Population: ${feature.properties.population.toLocaleString()} habitants</p>
                    `
                 );
+                layer.on({
+                  click: () => {
+                    handleArrondissementChange(feature.properties.l_ar);
+                  },
+                });
               }}
             />
           </MapContainer>
@@ -103,7 +130,7 @@ const App = () => {
           <div className="p-4">
             <PopulationChart
               data={demoData}
-              setActiveArrondissement={setActiveArrondissement}
+              setActiveArrondissement={handleArrondissementChange}
             />
           </div>
         )}

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+:root {
+  --primary-color: #6aae8f;
+  --hover-color: #5a987c;
+}
+
 button {
   cursor: pointer;
 }

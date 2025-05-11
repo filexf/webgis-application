@@ -21,6 +21,9 @@ ChartJS.register(
 );
 
 const PopulationChart = ({ data, setActiveArrondissement }) => {
+  // Trier les données par numéro d'arrondissement
+  const sortedData = [...data].sort((a, b) => a.c_ar - b.c_ar);
+
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -31,19 +34,30 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
         display: true,
         text: "Population par Arrondissement",
       },
+      tooltip: {
+        callbacks: {
+          title: (items) => {
+            const index = items[0].dataIndex;
+            return `${sortedData[index].l_ar} - ${sortedData[index].l_aroff}`;
+          },
+          label: (item) => {
+            return `Population: ${item.raw.toLocaleString()} habitants`;
+          },
+        },
+      },
     },
-    onHover: (event, elements) => {
+    onClick: (event, elements) => {
       if (elements && elements.length > 0) {
-        const arrondissement = data.labels[elements[0].index];
-        setActiveArrondissement(arrondissement);
-      } else {
-        setActiveArrondissement(null);
+        const index = elements[0].index;
+        setActiveArrondissement(sortedData[index].l_ar);
       }
     },
+    onHover: (event, elements) => {
+      event.native.target.style.cursor = elements?.length
+        ? "pointer"
+        : "default";
+    },
   };
-
-  // Trier les données par numéro d'arrondissement
-  const sortedData = [...data].sort((a, b) => a.c_ar - b.c_ar);
 
   const chartData = {
     labels: sortedData.map((item) => item.l_ar),
@@ -51,9 +65,24 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
       {
         label: "Population",
         data: sortedData.map((item) => item.population),
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: sortedData.map((item) =>
+          item.population > 200000
+            ? "#FF6B6B"
+            : item.population > 150000
+            ? "#FF8585"
+            : item.population > 100000
+            ? "#FFA07A"
+            : item.population > 75000
+            ? "#FFB347"
+            : item.population > 50000
+            ? "#FFC000"
+            : item.population > 25000
+            ? "#FFE5B4"
+            : "#FFF8DC"
+        ),
+        borderColor: "white",
         borderWidth: 1,
+        hoverBackgroundColor: "#6AAE8F",
       },
     ],
   };
@@ -69,49 +98,49 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#08306b" }}
+              style={{ backgroundColor: "#FF6B6B" }}
             ></div>
             <span>{"> 200 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#08519c" }}
+              style={{ backgroundColor: "#FF8585" }}
             ></div>
             <span>{"150 000 - 200 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#2171b5" }}
+              style={{ backgroundColor: "#FFA07A" }}
             ></div>
             <span>{"100 000 - 150 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#4292c6" }}
+              style={{ backgroundColor: "#FFB347" }}
             ></div>
             <span>{"75 000 - 100 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#6baed6" }}
+              style={{ backgroundColor: "#FFC000" }}
             ></div>
             <span>{"50 000 - 75 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#9ecae1" }}
+              style={{ backgroundColor: "#FFE5B4" }}
             ></div>
             <span>{"25 000 - 50 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
-              style={{ backgroundColor: "#c6dbef" }}
+              style={{ backgroundColor: "#FFF8DC" }}
             ></div>
             <span>{"< 25 000 habitants"}</span>
           </div>

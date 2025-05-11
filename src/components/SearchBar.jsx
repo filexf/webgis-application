@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 
 const SearchBar = ({ data, setActiveArrondissement }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      const filteredSuggestions = data.filter(
-        item =>
-          item.properties.l_ar.toLowerCase().includes(searchLower) ||
-          item.properties.l_aroff.toLowerCase().includes(searchLower)
-      ).slice(0, 5); // Limiter à 5 suggestions
+      const filteredSuggestions = data
+        .filter(
+          (item) =>
+            item.properties.l_ar.toLowerCase().includes(searchLower) ||
+            item.properties.l_aroff.toLowerCase().includes(searchLower)
+        )
+        .slice(0, 5); // Limiter à 5 suggestions
       setSuggestions(filteredSuggestions);
       setShowSuggestions(true);
     } else {
@@ -41,7 +43,7 @@ const SearchBar = ({ data, setActiveArrondissement }) => {
       <div className="relative">
         <input
           type="text"
-          placeholder="Rechercher un arrondissement..."
+          placeholder="Chercher un arrondissement..."
           value={searchTerm}
           onChange={handleSearch}
           onFocus={() => setShowSuggestions(true)}
@@ -55,8 +57,12 @@ const SearchBar = ({ data, setActiveArrondissement }) => {
                 onClick={() => handleSuggestionClick(suggestion)}
                 className="px-4 py-2 hover:bg-sky-100 cursor-pointer border-b last:border-b-0"
               >
-                <div className="font-semibold">{suggestion.properties.l_ar}</div>
-                <div className="text-sm text-gray-600">{suggestion.properties.l_aroff}</div>
+                <div className="font-semibold">
+                  {suggestion.properties.l_ar}
+                </div>
+                <div className="text-sm text-gray-600">
+                  {suggestion.properties.l_aroff}
+                </div>
               </div>
             ))}
           </div>
