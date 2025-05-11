@@ -8,7 +8,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 3880036.39704363,
     perimetre: 7880.53326819,
-    population: 35418
+    population: 35418,
     geom_x_y: { lon: 2.312554022402065, lat: 48.872720837434464 },
     geom: {
       type: "Feature",

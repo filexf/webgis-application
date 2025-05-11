@@ -2,27 +2,28 @@ import "leaflet/dist/leaflet.css";
 import React, { useState } from "react";
 import { GeoJSON, MapContainer, TileLayer } from "react-leaflet";
 import PopulationChart from "./components/PopulationChart";
+import SearchBar from "./components/SearchBar";
 import { demoData } from "./data/parisData.js";
 
 const App = () => {
   const [showData, setShowData] = useState(true);
   const [activeArrondissement, setActiveArrondissement] = useState(null);
 
-  // Fonction pour déterminer la couleur en fonction de la surface
-  const getColorByArea = (surface) => {
-    return surface > 10000000
-      ? "#08306b" // bleu très foncé pour les plus grandes surfaces
-      : surface > 8000000
+  // Fonction pour déterminer la couleur en fonction de la population
+  const getColorByPopulation = (population) => {
+    return population > 200000
+      ? "#08306b" // bleu très foncé pour les plus grandes populations
+      : population > 150000
       ? "#08519c" // bleu foncé
-      : surface > 6000000
+      : population > 100000
       ? "#2171b5" // bleu moyen-foncé
-      : surface > 4000000
+      : population > 75000
       ? "#4292c6" // bleu moyen
-      : surface > 2000000
+      : population > 50000
       ? "#6baed6" // bleu clair
-      : surface > 1000000
+      : population > 25000
       ? "#9ecae1" // bleu très clair
-      : "#c6dbef"; // bleu le plus clair pour les plus petites surfaces
+      : "#c6dbef"; // bleu le plus clair pour les plus petites populations
   };
 
   // Style pour les arrondissements
@@ -31,7 +32,7 @@ const App = () => {
       fillColor:
         activeArrondissement === feature.properties.l_ar
           ? "#ff7800"
-          : getColorByArea(feature.properties.surface),
+          : getColorByPopulation(feature.properties.population),
       weight: 2,
       opacity: 1,
       color: "white",
@@ -50,6 +51,7 @@ const App = () => {
         l_aroff: item.l_aroff,
         c_ar: item.c_ar,
         surface: item.surface,
+        population: item.population,
       },
       geometry: item.geom.geometry,
     })),
@@ -71,7 +73,11 @@ const App = () => {
           showData ? "grid grid-cols-1 md:grid-cols-2" : ""
         } gap-4`}
       >
-        <div className={`h-full ${!showData ? "w-full" : ""}`}>
+        <div className={`h-full ${!showData ? "w-full" : ""} relative`}>
+          <SearchBar
+            data={geojsonData.features}
+            setActiveArrondissement={setActiveArrondissement}
+          />
           <MapContainer center={[48.8566, 2.3522]} zoom={12} className="h-full">
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -86,7 +92,7 @@ const App = () => {
                     feature.properties.l_ar
                   }</h3>
                    <p>Nom officiel: ${feature.properties.l_aroff}</p>
-                   <p>Surface: ${feature.properties.surface.toFixed(2)} m²</p>
+                   <p>Population: ${feature.properties.population.toLocaleString()} habitants</p>
                    `
                 );
               }}

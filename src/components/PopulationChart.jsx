@@ -29,7 +29,7 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
       },
       title: {
         display: true,
-        text: "Surface par Arrondissement",
+        text: "Population par Arrondissement",
       },
     },
     onHover: (event, elements) => {
@@ -49,8 +49,8 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
     labels: sortedData.map((item) => item.l_ar),
     datasets: [
       {
-        label: "Surface (m²)",
-        data: sortedData.map((item) => item.surface),
+        label: "Population",
+        data: sortedData.map((item) => item.population),
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
@@ -64,56 +64,56 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
         <Bar data={chartData} options={chartOptions} />
       </div>
       <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="text-lg font-semibold mb-2">Légende des surfaces</h3>
+        <h3 className="text-lg font-semibold mb-2">Légende des populations</h3>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#08306b" }}
             ></div>
-            <span>{"> 10 000 000 m²"}</span>
+            <span>{"> 200 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#08519c" }}
             ></div>
-            <span>{"8 000 000 - 10 000 000 m²"}</span>
+            <span>{"150 000 - 200 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#2171b5" }}
             ></div>
-            <span>{"6 000 000 - 8 000 000 m²"}</span>
+            <span>{"100 000 - 150 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#4292c6" }}
             ></div>
-            <span>{"4 000 000 - 6 000 000 m²"}</span>
+            <span>{"75 000 - 100 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#6baed6" }}
             ></div>
-            <span>{"2 000 000 - 4 000 000 m²"}</span>
+            <span>{"50 000 - 75 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#9ecae1" }}
             ></div>
-            <span>{"1 000 000 - 2 000 000 m²"}</span>
+            <span>{"25 000 - 50 000 habitants"}</span>
           </div>
           <div className="flex items-center">
             <div
               className="w-6 h-6 mr-2"
               style={{ backgroundColor: "#c6dbef" }}
             ></div>
-            <span>{"< 1 000 000 m²"}</span>
+            <span>{"< 25 000 habitants"}</span>
           </div>
         </div>
       </div>
