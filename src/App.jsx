@@ -1,6 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import React, { useRef, useState } from "react";
 import { GeoJSON, MapContainer, TileLayer } from "react-leaflet";
+import BaseMapSelector from "./components/BaseMapSelector";
 import PopulationChart from "./components/PopulationChart";
 import SearchBar from "./components/SearchBar";
 import { demoData } from "./data/parisData.geojson";
@@ -8,7 +9,24 @@ import { demoData } from "./data/parisData.geojson";
 const App = () => {
   const [showData, setShowData] = useState(true);
   const [activeArrondissement, setActiveArrondissement] = useState(null);
+  const [baseMap, setBaseMap] = useState("osm");
   const geoJsonLayerRef = useRef(null);
+
+  const baseMapLayers = {
+    osm: {
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+    satellite: {
+      url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+      attribution: "&copy; Google",
+    },
+  };
+
+  const handleBaseMapChange = (newBaseMap) => {
+    setBaseMap(newBaseMap);
+  };
 
   // Fonction pour déterminer la couleur en fonction de la population
   const getColorByPopulation = (population) => {
@@ -101,8 +119,8 @@ const App = () => {
           />
           <MapContainer center={[48.8566, 2.3522]} zoom={12} className="h-full">
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution="&copy; OpenStreetMap contributors"
+              url={baseMapLayers[baseMap].url}
+              attribution={baseMapLayers[baseMap].attribution}
             />
             <GeoJSON
               ref={geoJsonLayerRef}
@@ -125,6 +143,7 @@ const App = () => {
               }}
             />
           </MapContainer>
+          <BaseMapSelector onBaseMapChange={handleBaseMapChange} />
         </div>
         {showData && (
           <div className="p-4">
