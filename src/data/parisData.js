@@ -8,6 +8,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 3880036.39704363,
     perimetre: 7880.53326819,
+    population: 35418
     geom_x_y: { lon: 2.312554022402065, lat: 48.872720837434464 },
     geom: {
       type: "Feature",
@@ -302,6 +303,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 3665441.55248808,
     perimetre: 8282.01188584,
+    population: 151000,
     geom_x_y: { lon: 2.380058308197898, lat: 48.859059221342484 },
     geom: {
       type: "Feature",
@@ -530,6 +532,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 2891739.44162064,
     perimetre: 6739.37505466,
+    population: 83543,
     geom_x_y: { lon: 2.360728487847452, lat: 48.87613003653913 },
     geom: {
       type: "Feature",
@@ -780,6 +783,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 5996051.30811905,
     perimetre: 9916.46417634,
+    population: 184586,
     geom_x_y: { lon: 2.3481605195620396, lat: 48.89256926800578 },
     geom: {
       type: "Feature",
@@ -1031,6 +1035,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 1600585.63150251,
     perimetre: 5420.90843368,
+    population: 28324,
     geom_x_y: { lon: 2.357629620324997, lat: 48.85434142627288 },
     geom: {
       type: "Feature",
@@ -1178,6 +1183,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 991153.74474596,
     perimetre: 4554.10435957,
+    population: 20416,
     geom_x_y: { lon: 2.3428025468913636, lat: 48.86827922252251 },
     geom: {
       type: "Feature",
@@ -1237,6 +1243,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 6792651.12902648,
     perimetre: 11253.1824786,
+    population: 188000,
     geom_x_y: { lon: 2.384820960152517, lat: 48.887075996572584 },
     geom: {
       type: "Feature",
@@ -1628,6 +1635,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 7149311.09107136,
     perimetre: 11546.5465264,
+    population: 183000,
     geom_x_y: { lon: 2.3622703608413, lat: 48.82838796597577 },
     geom: {
       type: "Feature",
@@ -1927,6 +1935,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 2153095.58639283,
     perimetre: 6483.68678565,
+    population: 41000,
     geom_x_y: { lon: 2.3328979990533147, lat: 48.84913035858523 },
     geom: {
       type: "Feature",
@@ -2036,6 +2045,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 2178303.27487137,
     perimetre: 6471.5882901,
+    population: 60026,
     geom_x_y: { lon: 2.3374575434825444, lat: 48.87716351732887 },
     geom: {
       type: "Feature",
@@ -2167,6 +2177,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 16372542.1289739,
     perimetre: 17416.1096565,
+    population: 161773,
     geom_x_y: { lon: 2.261970788364543, lat: 48.860392105415826 },
     geom: {
       type: "Feature",
@@ -2672,6 +2683,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 2539374.62284532,
     perimetre: 6239.19539614,
+    population: 59835,
     geom_x_y: { lon: 2.3507146095752587, lat: 48.844443150532705 },
     geom: {
       type: "Feature",
@@ -2815,6 +2827,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 5668834.50445393,
     perimetre: 10775.579516,
+    population: 160860,
     geom_x_y: { lon: 2.3067769905744084, lat: 48.887326522025816 },
     geom: {
       type: "Feature",
@@ -3132,6 +3145,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 1824612.86048666,
     perimetre: 6054.93686218,
+    population: 15475,
     geom_x_y: { lon: 2.3364433620533878, lat: 48.862562701836005 },
     geom: {
       type: "Polygon",
@@ -3250,6 +3264,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 1170882.82818778,
     perimetre: 4519.26364836,
+    population: 35989,
     geom_x_y: { lon: 2.360000985897692, lat: 48.862872380016924 },
     geom: {
       type: "Feature",
@@ -3359,6 +3374,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 5614877.30907921,
     perimetre: 10317.4833099,
+    population: 137000,
     geom_x_y: { lon: 2.3265420441989466, lat: 48.82924450048987 },
     geom: {
       type: "Feature",
@@ -3561,6 +3577,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 16314782.6372674,
     perimetre: 24089.6662978,
+    population: 140000,
     geom_x_y: { lon: 2.4213235156144646, lat: 48.834974154202456 },
     geom: {
       type: "Feature",
@@ -4679,6 +4696,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 8494994.08101075,
     perimetre: 13678.7983149,
+    population: 225362,
     geom_x_y: { lon: 2.2928258224249976, lat: 48.840085375938216 },
     geom: {
       type: "Feature",
@@ -4991,6 +5009,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 5983446.03718297,
     perimetre: 10704.9404863,
+    population: 195000,
     geom_x_y: { lon: 2.4011881292846864, lat: 48.86346057889562 },
     geom: {
       type: "Feature",
@@ -5307,6 +5326,7 @@ export const demoData = [
     n_sq_co: 750001537,
     surface: 4090057.18546976,
     perimetre: 8099.42488348,
+    population: 47947,
     geom_x_y: { lon: 2.3121876953655494, lat: 48.85617443127909 },
     geom: {
       type: "Feature",

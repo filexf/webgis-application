@@ -67,32 +67,53 @@ const PopulationChart = ({ data, setActiveArrondissement }) => {
         <h3 className="text-lg font-semibold mb-2">Légende des surfaces</h3>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#08306b' }}></div>
-            <span>{'> 10 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#08306b" }}
+            ></div>
+            <span>{"> 10 000 000 m²"}</span>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#08519c' }}></div>
-            <span>{'8 000 000 - 10 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#08519c" }}
+            ></div>
+            <span>{"8 000 000 - 10 000 000 m²"}</span>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#2171b5' }}></div>
-            <span>{'6 000 000 - 8 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#2171b5" }}
+            ></div>
+            <span>{"6 000 000 - 8 000 000 m²"}</span>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#4292c6' }}></div>
-            <span>{'4 000 000 - 6 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#4292c6" }}
+            ></div>
+            <span>{"4 000 000 - 6 000 000 m²"}</span>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#6baed6' }}></div>
-            <span>{'2 000 000 - 4 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#6baed6" }}
+            ></div>
+            <span>{"2 000 000 - 4 000 000 m²"}</span>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#9ecae1' }}></div>
-            <span>{'1 000 000 - 2 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#9ecae1" }}
+            ></div>
+            <span>{"1 000 000 - 2 000 000 m²"}</span>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 mr-2" style={{ backgroundColor: '#c6dbef' }}></div>
-            <span>{'< 1 000 000 m²'}</span>
+            <div
+              className="w-6 h-6 mr-2"
+              style={{ backgroundColor: "#c6dbef" }}
+            ></div>
+            <span>{"< 1 000 000 m²"}</span>
           </div>
         </div>
       </div>
