@@ -31,18 +31,18 @@ const App = () => {
   // Fonction pour déterminer la couleur en fonction de la population
   const getColorByPopulation = (population) => {
     return population > 200000
-      ? "#FF6B6B" // rouge clair pour les plus grandes populations
+      ? "#FF6B6B"
       : population > 150000
-      ? "#FF8585" // rouge plus clair
+      ? "#FF8585"
       : population > 100000
-      ? "#FFA07A" // saumon clair
+      ? "#FFA07A"
       : population > 75000
-      ? "#FFB347" // orange clair
+      ? "#FFB347"
       : population > 50000
-      ? "#FFC000" // orange plus clair
+      ? "#FFC000"
       : population > 25000
-      ? "#FFE5B4" // pêche clair
-      : "#FFF8DC"; // beige très clair pour les plus petites populations
+      ? "#FFE5B4"
+      : "#FFF8DC"; 
   };
 
   // Style pour les arrondissements
@@ -109,15 +109,24 @@ const App = () => {
       </header>
       <main
         className={`flex-grow ${
-          showData ? "grid grid-cols-1 md:grid-cols-2" : ""
+          showData ? "flex flex-col md:grid md:grid-cols-2" : ""
         } gap-4`}
       >
-        <div className={`h-full ${!showData ? "w-full" : ""} relative`}>
+        <div
+          className={`${showData ? "h-1/2 md:h-full" : "h-full"} ${
+            !showData ? "w-full" : ""
+          } relative`}
+        >
           <SearchBar
             data={geojsonData.features}
             setActiveArrondissement={handleArrondissementChange}
           />
-          <MapContainer center={[48.8566, 2.3522]} zoom={12} className="h-full">
+          <MapContainer
+            center={[48.8566, 2.3522]}
+            zoom={12}
+            className="h-full w-full"
+            style={{ minHeight: showData ? "300px" : "inherit" }}
+          >
             <TileLayer
               url={baseMapLayers[baseMap].url}
               attribution={baseMapLayers[baseMap].attribution}
@@ -146,7 +155,7 @@ const App = () => {
           <BaseMapSelector onBaseMapChange={handleBaseMapChange} />
         </div>
         {showData && (
-          <div className="p-4">
+          <div className="h-1/2 md:h-full overflow-auto p-4">
             <PopulationChart
               data={demoData}
               setActiveArrondissement={handleArrondissementChange}
